@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import User, Team, Activity, Leaderboard, Workout
+
+from .models import Activity, Leaderboard, Team, User, Workout
+
 
 admin.site.register(User)
 admin.site.register(Team)
