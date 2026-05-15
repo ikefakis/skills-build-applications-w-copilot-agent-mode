@@ -6,6 +6,7 @@ function Leaderboard() {
   const [entries, setEntries] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
+  // Codespaces API pattern: https://<codespace>-8000.app.github.dev/api/leaderboard/
   const endpoint = buildApiUrl('leaderboard');
 
   useEffect(() => {

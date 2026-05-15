@@ -6,6 +6,7 @@ function Activities() {
   const [activities, setActivities] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
+  // Codespaces API pattern: https://<codespace>-8000.app.github.dev/api/activities/
   const endpoint = buildApiUrl('activities');
 
   useEffect(() => {

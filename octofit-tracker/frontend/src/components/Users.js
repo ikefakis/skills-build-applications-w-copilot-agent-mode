@@ -6,6 +6,7 @@ function Users() {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
+  // Codespaces API pattern: https://<codespace>-8000.app.github.dev/api/users/
   const endpoint = buildApiUrl('users');
 
   useEffect(() => {

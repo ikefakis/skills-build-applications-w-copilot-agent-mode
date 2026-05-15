@@ -6,6 +6,7 @@ function Workouts() {
   const [workouts, setWorkouts] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
+  // Codespaces API pattern: https://<codespace>-8000.app.github.dev/api/workouts/
   const endpoint = buildApiUrl('workouts');
 
   useEffect(() => {

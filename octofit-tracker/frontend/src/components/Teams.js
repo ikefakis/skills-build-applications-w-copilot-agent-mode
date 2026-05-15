@@ -6,6 +6,7 @@ function Teams() {
   const [teams, setTeams] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
+  // Codespaces API pattern: https://<codespace>-8000.app.github.dev/api/teams/
   const endpoint = buildApiUrl('teams');
 
   useEffect(() => {
