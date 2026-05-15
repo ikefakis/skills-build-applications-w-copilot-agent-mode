@@ -1,12 +1,19 @@
 import os
 from pathlib import Path
 
+from corsheaders.defaults import default_headers, default_methods
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-@c-5!+s-0+x_y5_u^5f-0_0_!v!+0_0_!v!+0_0_!v!'
 DEBUG = True
+codespace_name = os.environ.get('CODESPACE_NAME')
+
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-if os.environ.get('CODESPACE_NAME'):
-    ALLOWED_HOSTS.append(f"{os.environ.get('CODESPACE_NAME')}-8000.app.github.dev")
+if codespace_name:
+    ALLOWED_HOSTS.extend([
+        f"{codespace_name}-8000.app.github.dev",
+        f"{codespace_name}-3000.app.github.dev",
+    ])
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -63,9 +70,24 @@ DATABASES = {
     }
 }
 
-# CORS settings
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+]
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+]
+
+if codespace_name:
+    frontend_origin = f"https://{codespace_name}-3000.app.github.dev"
+    backend_origin = f"https://{codespace_name}-8000.app.github.dev"
+    CORS_ALLOWED_ORIGINS.extend([frontend_origin, backend_origin])
+    CSRF_TRUSTED_ORIGINS.extend([frontend_origin, backend_origin])
+
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = list(default_headers)
+CORS_ALLOW_METHODS = list(default_methods)
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -88,7 +110,3 @@ USE_I18N = True
 USE_TZ = True
 STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOW_HEADERS = ['*']
-CORS_ALLOW_METHODS = ['*']
